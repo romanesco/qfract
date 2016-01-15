@@ -1,0 +1,1 @@
+/Users/inou/prog/sc/sc2.cpp

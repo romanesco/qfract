@@ -1,0 +1,100 @@
+/*
+ * some quartic family (unfinished...)
+ */
+
+#include "../plugin.h"
+using namespace QFract;
+#include <iostream>
+#include <complex>
+using namespace std;
+
+const char* NAME = "Quartic Family";
+const char* CHILD = "quartic2.so";
+
+const double XL = -2.0;
+const double YT = 2.0;
+const double XR = 2.0;
+const double YB = -2.0;
+const double CRE = 0.0;
+const double CIM = 1.0;
+
+const int MAXITER = 50;
+const int MAXORBIT = 10;
+const int N=4;
+double VALUE[N]={0.0, 0.0, 0.0, 0.0};
+const Parameter PARAM( N, VALUE );
+const char* PARAMDESC[N] = { "Re(a)", "Im(a)", "Re(b)","Im(b)" };
+
+extern "C" {
+int iter(Point z, Parameter param, int max)
+{
+    complex<double> a(param.Value(0),param.Value(1)),
+	b(param.Value(2), param.Value(3)),
+	c(z.x, z.y);
+
+    double R=1000;
+    complex<double> p, tmp1, tmp2, tmp3;
+
+    register int i,j;
+    tmp1 = 3.0*(a-2.0)-2.0*b;
+    tmp2 = sqrt(tmp1*tmp1 + 16.0*b*a);
+    tmp3 = 8.0*b;
+    // cp1
+    p = (-tmp1+tmp2)/tmp3;
+
+    for ( i=0; (i<max) && (norm(p) < R ); i++ ) {
+	p = (p-1.0)*(p-1.0)*((b*p+(a-2.0))*p-1.0)+1.0;
+    }
+    
+    // cp2
+    p = (-tmp1-tmp2)/tmp3;
+
+    for ( j=0; (j<max) && (norm(p) < R ); j++ ) {
+	p = (p-1.0)*(p-1.0)*((b*p+(a-2.0))*p-1.0)+1.0;
+    }
+
+    if ( (i>=max) && (j>=max) )
+	return -1;
+    else if (i < j)
+	return j*8+1;
+    else
+	return i*8;
+	
+}
+
+Point map(Point z, Point c, Parameter param)
+{
+    complex<double> b(-param.Value(1), param.Value(0));
+    complex<double> a=exp(2*M_PI*b);
+    b = complex<double>(c.x, c.y);
+    complex<double> p(z.x, z.y);
+    
+	p = (p-1.0)*(p-1.0)*((b*p+(a-2.0))*p-1.0)+1.0;
+	
+    return Point(real(p),imag(p));
+}
+
+Point init(Point c, Parameter param) 
+{
+    complex<double> b(-param.Value(1), param.Value(0));
+    complex<double> a=exp(2*M_PI*b);
+    b = complex<double>(c.x, c.y);
+
+    complex<double> p, tmp1,tmp2,tmp3;
+
+    tmp1 = 3.0*(a-2.0)-2.0*b;
+    tmp2 = sqrt(tmp1*tmp1 + 16.0*b*a);
+    tmp3 = 8.0*b;
+    // cp1
+    p = (-tmp1+tmp2)/tmp3;
+
+    return Point(real(p), imag(p));
+}
+
+PluginInfo* getInfo()
+{
+  PluginInfo* i= new PluginInfo(NAME, XL, YT, XR, YB, MAXITER, MAXORBIT,
+				PARAM, CHILD, PARAMDESC);
+  return i;
+}
+}

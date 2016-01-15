@@ -1,0 +1,58 @@
+IQFract -- a Qt based fractal viewer
+
+ソースコードからビルドするには, Qt4.5 (以降？) が必要です。
+ない場合は、 http://qt.nokia.com/
+からダウンロードしてインストールしてください。
+
+Boost C++ Library (http://www.boost.org/) も必要です。
+
+動作環境は:
+- Mac OS X (10.4 以降)
+- Windows (MinGW を使用)
+- Linux, Mac OS X, FreeBSD などの X Window System が動く環境
+です. 
+また, Windows + MinGW では dlfcn-win32
+http://code.google.com/p/dlfcn-win32/
+を入れる必要があります. 
+
+インストール方法は、適当なディレクトリで、
+$ tar zxvf qfract-なんたら.tar.gz
+$ cd qfract-なんたら
+
+とした後, 自分の環境にあわせて
+Makefile, config.h, plugins/Makefile を編集してください. 
+その後, 
+
+$ make
+
+で作成されます. 
+
+注: qmake を自分で走らせないでください. Makefile が上書きされてしまいます. 
+
+最近の Mac OS X では、Makefile ではなく、XCode 用のプロジェクトが作成されるので、
+Makefile.qmake.xcodeproj を開いて XCode 上でコンパイルしてください。
+これだけでは必要なファイル全ては揃わないので、以下の指示に従ってください。
+
+Mac OS X (Aqua) と Windows の以外の環境では, 
+
+$ ./qfract 
+
+とすると動きます. 
+Mac OS X (Aqua) と Windows の場合はさらに以下を実行する必要があります. 
+
+i) Mac の場合はアプリケーションバンドルになっているので, 
+
+$ make install-mac
+
+を実行すると, 必要なファイルが qfract-mac.app 以下にコピーされます. 
+qfract-mac.app を他の場所に移動しても動くようになっています. 
+Universal binary を作りたい場合は, qfract.pro も編集してください. 
+qfract で作成し保存した png ファイルも開くことができます。
+
+ii) Windows では, 
+
+$make install-win
+
+を実行すると, 必要なファイルが dist 以下にコピーされます. 
+実行するのに必要なのはこのディレクトリだけです. 
+ディレクトリの名前を変えたり, 移動したりしても動きます. 

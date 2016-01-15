@@ -1,0 +1,80 @@
+How to make a function plugin
+
+You can make function plugins by yourself to define new function
+to draw by qfract.
+
+First, you need to include plugin.h in the source directory.
+Classes and functions like Point, Parameter, PluginInfo are defined
+under QFract namespace, so I recommend to add
+
+using namespace QFract;
+
+rather than use QFract::Point and so on.
+
+A plugin consists of the following 5 functions.
+class Point consists of double x, y as public variables.
+It corresponds to a point (x,y) in the plane.
+(It is defined in double.h, included from plugin.h.)
+
+To load those functions, qfract uses dlfcn.h.
+Function overload for C++ causes a problem with dynamic loading,
+so you should avoid it by putting definitions in
+extern "C"{ }
+(note that you can use C++ code in it).
+
+i) int iter(Point z, double *param, int max)
+
+To determine the color for each pixel.
+It returns the color for the Point z.
+The color is the return value (int) % 256.
+
+If it returns -1, then the point is colored in black.
+
+Usually, for a given Point z, this function calculates
+the forward orbit up to max times and check if the termination condition
+is satisfied, and return the time when the termination condition is first
+satisfied, or -1 if the termination condition is not satisfied.
+
+ii) Point map(Point z, Point c, double *param)
+
+It is used to calculate forward orbit.
+For a given Point z, it calculates the next point.
+Basically it is just the process in the loop of the function iter();
+
+iii) Point init(Point c, double *param)
+
+This is also used to calculate forward orbit.
+It returns the initial value for the Point c.
+Usually it returns c itself for phase spaces, and a critical point
+for parameter spaces.
+
+iv) void paraminit(Parameter param)
+
+This function is called when the Parameter is set or changed.
+Usually for calculating global parameters.
+Such a calculation often causes a use of static variables,
+hence it can cause a problem in opening several windows.
+
+You do not need to define this function.
+
+v) PluginInfo* getInfo()
+
+PluginInfo is a class defined in plugin.h.
+It consists of:
+- the name of the plugin (const char *name),
+- the region in the plane to draw (double xleft, ytop, xright, ybottom),
+- the number of maximal iteration (int maxiter),
+- the number of forward orbit (int maxorbit),
+- the number of parameters (int paramnum),
+- the initial parameters (double *param),
+- the filename of the child plugin (const char *childname),
+- the filename of the default colormap (const char *colormap),
+- the list of the descriptions for the parameters (const char** paramdesc).
+
+You only need to do as follows:
+
+return new PluginInfo(name, xleft, ytop, xright, ybottom, maxiter,
+                      maxorbit, paramnum, param, childname,
+		       colormap, paramdesc)
+
+You can omit colormap and paramdesc (you can also omit only one of them).

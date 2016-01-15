@@ -1,0 +1,14 @@
+qfract
+qfract.app
+Makefile.qmake
+.qmake.stash
+moc_*.cpp
+*.o
+*.so
+*.zip
+*.tar.gz
+*.png
+*.old
+*~
+*.swp
+

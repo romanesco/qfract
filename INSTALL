@@ -1,0 +1,66 @@
+QFract -- a Qt based fractal viewer
+
+To build from the source code, you need Qt 4.5 (or later?).
+Download it from http://qt.nokia.com/ and install.
+
+You also need Boost C++ Libraries (http://www.boost.org/).
+
+Supported platforms are:
+- Mac OS X (10.4 or later),
+- Windows (with MinGW),
+- Linux, Mac OS X+X11, FreeBSD, etc. on X Window System.
+
+To build on Windows + MinGW, you need dlfcn-win32.
+(http://code.google.com/p/dlfcn-win32/)
+
+Install instruction:
+
+First unpack the archive as follows
+
+$ tar zcvf qfract-??????.tar.gz
+$ cd qfract4
+
+and edit Makefile, config.h, plugins/Makefile to adjust your environment.
+Then
+
+$ make
+
+to compile everything.
+
+Warning: Do not run qmake by yourself. It will overwrite Makefile.
+
+For recent Mac OS X, qmake create XCode project file, so open
+Makefile.qmake.xcodeproj and build qfract by XCode.
+Building by XCode is not enough to run qfract. Follow the instruction
+below.
+
+Under other environment than Mac OS X (Aqua) and Windows, just execute
+
+$ ./qfract
+
+to run the binary.
+For Mac OS X (Aqua) and Windows, you also need to to the following after 
+running make.
+
+
+i) For Mac OS X, run
+
+$ make install-mac
+
+to copy necessary files into qfract-mac.app in order to make
+an application bundle. qfract-mac.app can run well when it is moved to
+other place.
+If you want to build a universal binary, edit also qfract.pro.
+
+ii) For Windows, run
+
+$ make install-win
+
+to copy necessary files into dist directory.
+Then you can run dist/qfract.exe and dist directory can
+be moved and renamed as you like.
+Depending on the libraries, you might also need to put libraries
+(of Qt, Boost, gcc, stdc++, etc.) in the same directory as
+qfract.exe.
+
+Have fun!

@@ -1,0 +1,80 @@
+プラグインの作り方
+
+自分でプラグインを作ることで、好きな関数を自分で定義して描かせることが
+できます。
+
+プラグインを作るときは、まず plugin.h を include してください。
+(plugins ディレクトリにソースを置く場合は ../plugin.h になります. )
+Point, Parameter, PluginInfo などの関係するクラスや関数は
+ QFract という namespace の元で定義されているので, 
+
+using napespace QFract;
+
+と書いておくと楽です. 
+(書かない場合は以下は QFract::Point 等に読みかえてください. )
+
+プラグインは次の5つの関数からできています。
+class Point はx, y という 2 つの double を内部変数として持つクラスです。
+平面(R^2)上の点の座標と思ってください。
+定義は double.h (plugin.h から include される)にあります。
+
+dlfcn.h を用いて読みこんでいます. 
+C++ の関数のオーバーロードが問題を生ずるため, それを避ける為に
+extern "C" { } で囲む必要があります. 
+(囲った中身で C++ を使うことは問題ありません. )
+
+i) int iter(Point z, double *param, int max)
+
+描画に使われる。返り値(int)を256で割った余りの数がもとの点の描画される
+色に対応します。z は画面上の点、paramはパラメータ、max は iteration の
+最大回数(もちろん他の使い方をしても一向に構いません)です。
+
+一般的な使い方は、点 z に対して関数、初期値を定め、
+そこから関数をiterationして判定条件(attractive cycle に近づいていない、
+などの)を満たさなくなった最初の回数を返すなどでしょう。
+
+-1を返すと色が塗られません(max回を越えても判定条件を満たし続ける場合など)
+
+ii) Point map(Point z, Point c, double *param)
+
+forward orbitの計算に使われる。与えられた点zに対し、その次(その点を関
+数でうつした点)を返す。
+関数 iter のループで使っている部分を流用するのが一般的でしょう。
+
+iii) Point init(Point c, double *param)
+
+これも forward orbit の計算に使われる。マウスポインタのさしている点 c
+から初期値を求める。通常相空間では c をそのまま返し, パラメータ空間では
+critical point の値を返すことになると思います. 
+
+iv) void paraminit(Parameter param)
+
+パラメータが設定・変更された時に呼び出される関数です. 
+各点毎に計算する必要がないものはここでやっておくと高速化が計れます. 
+ただし, static 変数などを使うことになりがちなので, 
+複数の窓を開く時に問題が起きるかもしれません. 
+
+不要な場合は書かなくても構いません. 
+
+v) PluginInfo* getInfo()
+
+PluginInfo は plugin.h 内で定義されているクラスです。
+・プラグインの名前(const char *name)
+・画面に描画する範囲(double xleft, ytop, xright, ybottom)
+・iteration回数(int maxiter)
+・forward orbitの計算回数(int maxorbit)
+・パラメータの数(int paramnum)
+・初期パラメータ(double *param)
+・子ウィンドウのプラグインのファイル名(const char *childname)
+・標準のカラーマップのファイル名 (const char *colormap)
+・各パラメータの説明文のリスト (const char** paramdesc)
+を内部変数にもっています。
+
+この関数は基本的に
+
+return new PluginInfo(name, xleft, ytop, xright, ybottom, maxiter,
+                      maxorbit, paramnum, param, childname,
+		       colormap, paramdesc)
+
+とするだけでいいです。
+colormap と paramdesc はいずれも省略可能です (どちらか一方だけでもよい). 

@@ -1,0 +1,91 @@
+QFract -- a Qt based fractal viewer
+
+QFract is a fast viewer for Mandelbrot set, Julia set and so on.
+
+Supported platforms are:
+- Mac OS X (10.4 or later),
+- Windows (with MinGW),
+- Linux, Mac OS X+X11, FreeBSD, etc. on X Window System.
+
+QFract is licensed under GNU GPL v2 (up to now).
+Since Qt open source edition is licensed under LGPL from version 4.5,
+I might change the license to BSDL or something in the future...
+
+Usage:
+
+i) Launch and quit
+
+Double click qfract-mac.app for Mac and qfrct.exe for Windows to launch.
+For Linux, move to the build directory and run:
+
+$ ./qfract
+
+To quit, select [File]->[Quit] ([qfract]->[Quit qfract]
+for Mac) or close all windows.
+
+ii) Basic instruction
+When qfract has launched the Mandelbrot set is displayed in the window.
+
+ii-1) Zooming
+To zoom, drag the mouse with the right button to select the region to zoom.
+The picture of the selected region will appear in a new window.
+
+ii-2) Drawing forward orbit
+If [Settings]->[Forward orbit] is select,
+the forward orbit corresponding the position of the mouse pointer
+is drawn. 
+
+Note that forward orbits do not necessarily start at the mouse pointer
+because in the parameter space, usually the forward orbit of a critical
+point (or critical value) in the parameter pointed by the pointer is drawn,
+while the forward orbit of the point is drawn in the phase space.
+
+Select [Forward orbit] again to stop drawing.
+
+ii-3) Creating child window
+In pictures of parameter spaces, you can open child window
+to draw phase spaces or another parameter spaces.
+Select [Settings]->[Create child window].
+
+By clicking the original picture, the picture with the corresponding
+parameter is shown in the child window.
+
+ii-4) Parameters
+By selecting [Settings]->[Set parameters...],
+you can change parameters, the size of the picture, the region,
+and the maximal iteration times.
+
+iii) Other functionalities
+
+iii-1) Function plugins
+QFract can display various kind of pictures drawn by iterative methods.
+Selecting [Settings]->[Load function plugins...],
+you can choose many functions.
+
+Function plugins are dynamically loaded.
+To load function plugins not in the dialog, or your own function plugins,
+push [Open File...] button in the dialog.
+
+Some function plugins use static variables in C language,
+so opening several windows (especially with different parameters) might
+cause a problem.
+
+iii-2) Colormaps
+Select [File]->[Load color map...] to change the colormap of the picture.
+Recommended colormap is automatically chosen for each function plugin,
+you do not usually need to use this functionality.
+
+Changing colormap causes redrawing the picture, so if you need to change
+colormap for a picture that needs a long time to draw, first try changing
+colormap with very low iterate.
+
+iii-3) Save
+You can save pictures in PNG format by selecting [File]->[Save...].
+
+iii-4) Load
+You can load pictures saved by qfract by selecting [File]->[Open...].
+Only PNG file saved by qfract is supported. 
+(Do not try other PNG files because I did not code error handling...)
+
+iii-5) Print
+You can print pictures by selecting [File]->[Print...].
