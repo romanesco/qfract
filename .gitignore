@@ -8,6 +8,7 @@ moc_*.cpp
 *.zip
 *.tar.gz
 *.png
+*.pro.user
 *.old
 *~
 *.swp

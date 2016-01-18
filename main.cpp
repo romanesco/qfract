@@ -20,12 +20,12 @@ char PLUGIN_PATH[PATH_MAX], COLORMAP_PATH[PATH_MAX];
 #include <QDir>
 #endif // Q_OS_MAC
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 #include <windows.h>
 #include <tchar.h>
 TCHAR path[PATH_MAX];
 char PLUGIN_PATH[PATH_MAX], COLORMAP_PATH[PATH_MAX];
-#endif
+#endif // Q_OS_WIN
 
 using namespace QFract;
 
@@ -56,7 +56,7 @@ int main( int argc, char ** argv ) {
   
   QApplication app( argc, argv );
 // get the application path for Windows
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
   QString qpath;
   if (::GetModuleFileName(NULL, path, PATH_MAX)) {
 #ifdef UNICODE
@@ -79,7 +79,7 @@ int main( int argc, char ** argv ) {
 	 qPrintable(qpath + "/plugins"));
   strcpy(COLORMAP_PATH,
 	 qPrintable(qpath + "/colormaps"));
-#endif
+#endif // Q_OS_WIN
 
   QTranslator translator;
   cerr << "locale = " << qPrintable(QLocale::system().name()) << endl;

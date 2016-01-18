@@ -13,11 +13,11 @@
 #include <limits.h>
 #endif
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 
 extern char PLUGIN_PATH[PATH_MAX], COLORMAP_PATH[PATH_MAX];
 
-#else // Q_WS_WIN
+#else // Q_OS_WIN
 
 #ifdef Q_OS_MAC
 
@@ -32,7 +32,7 @@ extern char PLUGIN_PATH[PATH_MAX], COLORMAP_PATH[PATH_MAX];
 #define COLORMAP_PATH "/Users/inou/prog/qfract4-mt/colormaps"
 
 #endif // Q_OS_MAC
-#endif // Q_WS_WIN
+#endif // Q_OS_WIN
 
 #endif // PLUGIN
 

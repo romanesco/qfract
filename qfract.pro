@@ -12,12 +12,15 @@ win32:RC_FILE	= qfract.rc
 macx:ICON	= qfract.icns
 
 # for Win
+win32:QMAKE_CXXFLAGS_RELEASE    += -march=i686
 #  Boost
-win32:QMAKE_CXXFLAGS_RELEASE	+= -Ic:/Boost/include/boost-1_48 -ffast-math
-win32:QMAKE_LFLAGS_RELEASE	+= -Lc:/Boost/lib
-win32:LIBS	+= -lboost_thread-mgw45-mt-1_48
+win32:QMAKE_CXXFLAGS_RELEASE	+= -Ic:/Users/inyo/Downloads/boost_1_60_0 -ffast-math
+win32:QMAKE_LFLAGS_RELEASE	+= -Lc:/Users/inyo/Downloads/boost_1_60_0/stage/lib
+win32:LIBS	+= -lboost_thread-mgw49-mt-1_60 -lboost_system-mgw49-mt-1_60
 #  dlfcn (from http://code.google.com/p/dlfcn-win32/)
-win32:LIBS	+= -ldl
+win32:QMAKE_CXXFLAGS_RELEASE      += -Ic:/Users/inyo/Downloads/dlfcn-win32-master
+win32:LIBS    += c:/Users/inyo/Downloads/dlfcn-win32-master/libdl.a -lpsapi
+#win32:LIBS	+= -ldl
 
 # for Mac (fink 32bit)
 #QMAKE_CXXFLAGS_RELEASE		+= -arch i386 -I/sw/include -fast -ffast-math
@@ -26,13 +29,13 @@ win32:LIBS	+= -ldl
 # for Mac 
 # -stdlib=libc++ is required because boost libraries are
 # linked to libc++.1.dylib and not libstdc++.6.dylib
-QMAKE_CXXFLAGS_RELEASE		+= -I/sw/include -stdlib=libc++
-QMAKE_LFLAGS_RELEASE	+= -L/sw/lib -stdlib=libc++
-QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.7
-QMAKE_MAC_SDK = macosx10.9
+macx:QMAKE_CXXFLAGS_RELEASE		+= -I/sw/include -stdlib=libc++
+macx:QMAKE_LFLAGS_RELEASE	+= -L/sw/lib -stdlib=libc++
+macx:QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.7
+macx:QMAKE_MAC_SDK = macosx10.9
 
 # for Boost (Mac, Linux)
-LIBS	+= -lboost_thread-mt -lboost_system-mt
+#LIBS	+= -lboost_thread-mt -lboost_system-mt
 
 # for universal binary for Mac
 #QMAKE_MAC_SDK	= /Developer/SDKs/MacOSX10.4u.sdk
