@@ -1,42 +1,42 @@
 #CXX	=	g++-fsf-4.8
 
 # Windows
-#WIN32	= yes
-
-# build universal binary for Mac
-#MAC_UNIVERSAL	= yes
-
-OS	= $(shell uname)
-
-ifeq ($(WIN32),yes)
-CXXFLAGS	= -shared -Wall -W -pipe -O3 -ffast-math
+ifeq ($(OS),Windows_NT)
+  WIN32	= yes
+  CXXFLAGS	= -shared -Wall -W -pipe -O3 -ffast-math
 else
 
-# Linux
-ifeq ($(OS),Linux)
-CXXFLAGS	= -shared -fPIC -Wall -W -pipe -O3 -ffast-math -I/usr/local/include
-endif
+# not Windows
+  # build universal binary for Mac
+  #MAC_UNIVERSAL	= yes
 
-# Mac OS X
-ifeq ($(OS),Darwin)
-#	for Mac OS X (Universal)
-ifeq ($(MAC_UNIVERSAL),yes)
-CXXFLAGS	= -arch ppc -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-else
-ARCH	= $(shell uname -p)
-#Mac OS X (PPC)
-ifeq ($(ARCH),powerpc)
-CXXFLAGS	= -bundle -flat_namespace -undefined suppress -pipe -fast -mpowerpc-gfxopt -ffast-math
-endif
-#	 for Mac OS X (Intel)
-ifeq ($(ARCH),i386)
-#CXXFLAGS	=  -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-endif # ARCH=i386
-endif # MAC_UNIVERSAL=yes
-endif # OS=Darwin
+  UNAME	= $(shell uname)
 
-endif # WIN32
+  # Linux
+  ifeq ($(UNAME),Linux)
+    CXXFLAGS	= -shared -fPIC -Wall -W -pipe -O3 -ffast-math -I/usr/local/include
+  endif
+
+  # Mac OS X
+  ifeq ($(UNAME),Darwin)
+  #	for Mac OS X (Universal)
+    ifeq ($(MAC_UNIVERSAL),yes)
+      CXXFLAGS	= -arch ppc -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
+    else
+      ARCH	= $(shell uname -p)
+      #Mac OS X (PPC)
+      ifeq ($(ARCH),powerpc)
+        CXXFLAGS	= -bundle -flat_namespace -undefined suppress -pipe -fast -mpowerpc-gfxopt -ffast-math
+      endif
+      #	 for Mac OS X (Intel)
+      ifeq ($(ARCH),i386)
+        #CXXFLAGS	=  -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
+        CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
+      endif # ARCH=i386
+    endif # MAC_UNIVERSAL=yes
+  endif # UNAME=Darwin
+
+endif # Windows_NT
 
 #	 for Win32 (MinGW)
 #CXXFLAGS	= -shared -Wall -W -pipe -O3
