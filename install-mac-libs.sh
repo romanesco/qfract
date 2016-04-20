@@ -5,7 +5,7 @@ QFRACT=qfract.app
 
 #QT_LIB_DIR=/Library/Frameworks
 #QT_LIB_DIR=/Developer/SDKs/QtSDK/Desktop/Qt/473/gcc/lib
-QTDIR=/usr/local/Qt/5.3/clang_64
+QTDIR=/usr/local/Qt/5.6/clang_64
 
 QT_LIB_DIR=$QTDIR/lib
 QT_PLUGIN_DIR=$QTDIR/plugins
@@ -13,7 +13,7 @@ PLUGIN_INSTALL_DIR=$QFRACT/Contents/Resources/plugins
 
 # for boost_thread
 BOOST_VERSION=1_53
-LIBBOOST_DIR=/sw/lib
+LIBBOOST_DIR=/usr/local/opt/boost/lib
 #LIBBOOST_THREAD=/sw/lib/libboost_thread-mt-${BOOST_VERSION}.dylib
 
 LIB_REFERENCE_DIR=@executable_path/../Resources/lib
@@ -22,9 +22,11 @@ LIB_INSTALL_DIR=$QFRACT/Contents/Resources/lib
 for i in thread system
 do
   mkdir -p $QFRACT/Contents/Resources/lib
-  DYLIB=libboost_${i}-mt-${BOOST_VERSION}.dylib
+  #DYLIB=libboost_${i}-mt-${BOOST_VERSION}.dylib
+  DYLIB=libboost_${i}-mt.dylib
   DYLIB_FULL_PATH=$LIBBOOST_DIR/$DYLIB
   cp "${DYLIB_FULL_PATH}" ${LIB_INSTALL_DIR}
+  chmod 644 ${LIB_INSTALL_DIR}/$DYLIB
   install_name_tool -change \
  	${DYLIB_FULL_PATH} \
  	${LIB_REFERENCE_DIR}/${DYLIB} \
@@ -39,7 +41,7 @@ done
 FRAMEWORK_REFERENCE_DIR=@executable_path/../Frameworks
 FRAMEWORK_INSTALL_DIR=$QFRACT/Contents/Frameworks
 
-for i in Core Gui PrintSupport Widgets
+for i in Core Gui PrintSupport Widgets DBus
 do
   mkdir -p $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/5
   cp $QT_LIB_DIR/Qt$i.framework/Versions/5/Qt$i \
@@ -47,16 +49,17 @@ do
   install_name_tool -id \
     $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/5/Qt$i \
     $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/5/Qt$i
-  install_name_tool -change $QT_LIB_DIR/Qt$i.framework/Versions/5/Qt$i \
+  install_name_tool -change "@rpath"/Qt$i.framework/Versions/5/Qt$i \
     $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/5/Qt$i \
     $QFRACT/Contents/MacOS/qfract
 done
 
-for i in Core Gui PrintSupport Widgets
+for i in Core Gui PrintSupport Widgets DBus
 do
   for j in Core Gui Widgets
   do
-     install_name_tool -change $QT_LIB_DIR/Qt$j.framework/Versions/5/Qt$j \
+     #install_name_tool -change $QT_LIB_DIR/Qt$j.framework/Versions/5/Qt$j \
+     install_name_tool -change "@rpath"/Qt$j.framework/Versions/5/Qt$j \
      $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/5/Qt$j \
      $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/5/Qt$i
   done
@@ -70,9 +73,9 @@ cp $QT_PLUGIN_DIR/platforms/libqcocoa.dylib \
 install_name_tool -id \
   @executable_path/../Resources/plugins/libqcocoa.dylib \
   $LIBQCOCOA_INSTALL_DIR/libqcocoa.dylib
-for j in Core Gui Widgets PrintSupport
+for j in Core Gui Widgets PrintSupport DBus
 do
-   install_name_tool -change $QT_LIB_DIR/Qt$j.framework/Versions/5/Qt$j \
+   install_name_tool -change @rpath/Qt$j.framework/Versions/5/Qt$j \
    $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/5/Qt$j \
    $LIBQCOCOA_INSTALL_DIR/libqcocoa.dylib
 done

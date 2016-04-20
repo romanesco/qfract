@@ -38,7 +38,7 @@ int iter(Point z, Parameter param, int max)
     double nor;
 
     register int i;
-    for ( i=0; (i<max) && ( (nor=norm(x)) < 1000 ) && (nor > 0.001); i++ )
+    for ( i=0; (i<max) && ( (nor=norm(x)) < 100000*10000 ) && (nor > 0.00001*0.00001); i++ )
     {
 	x = a*x*x*exp(b*(x-1.0/x));
     }
@@ -46,7 +46,7 @@ int iter(Point z, Parameter param, int max)
     if (i>=max)
 	return -1;
     else
-	return i;
+	return i*3;
 }
 
 Point map(Point z, Point c, Parameter param)

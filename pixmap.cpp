@@ -80,7 +80,7 @@ void Pixmap::draw()
   //boost::thread thr(bind(&Pixmap::progress, this, width()*height()));
   thr_grp.join_all();
   
-  do_draw(0, width(), 0, height(), 0);
+  //do_draw(0, width(), 0, height(), 0);
 	  
   /*
   int i, k=1;

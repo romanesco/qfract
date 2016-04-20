@@ -13,7 +13,7 @@ QMAKE-BIN	= qmake
 #QTDIR	= /usr/local/TrollTech/Qt-4.5.2
 #QTDIR	= /usr/local/TrollTech/Qt-4.8.0
 #QTDIR	= /usr/local/Qt/5.2.0/clang_64
-QTDIR	= /usr/local/Qt/5.3/clang_64
+QTDIR	= /usr/local/Qt/5.6/clang_64
 
 
 # for MacPorts
@@ -26,7 +26,7 @@ QTDIR	= /usr/local/Qt/5.3/clang_64
 #QTDIR=/sw/lib/qt4-x11
 
 # for mac (not using clang)
-#QMAKESPEC=macx-g++
+#QMAKESPEC = macx-g++
 
 # Win32 (MinGW)
 #QTDIR	= C:\Qt\2009.03\qt
