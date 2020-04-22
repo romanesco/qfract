@@ -3,6 +3,7 @@ qfract.app
 Makefile.qmake
 .qmake.stash
 moc_*.cpp
+moc_*.h
 *.o
 *.so
 *.zip

@@ -31,8 +31,8 @@ win32:LIBS    += c:/Users/inyo/Downloads/dlfcn-win32-master/libdl.a -lpsapi
 # linked to libc++.1.dylib and not libstdc++.6.dylib
 macx:QMAKE_CXXFLAGS_RELEASE		+= -I/usr/local/include -stdlib=libc++
 macx:QMAKE_LFLAGS_RELEASE	+= -L/usr/local/lib -stdlib=libc++
-macx:QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.11
-macx:QMAKE_MAC_SDK = macosx10.11
+#macx:QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.11
+#macx:QMAKE_MAC_SDK = macosx10.11
 
 # for Boost (Mac, Linux)
 LIBS	+= -lboost_thread-mt -lboost_system-mt

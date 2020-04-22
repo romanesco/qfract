@@ -4,7 +4,7 @@
 #
 
 # default
-QTDIR	= /usr
+#QTDIR	= /usr
 MAKE	= make
 QMAKE-BIN	= qmake
 #QMAKE-BIN	= qmake-qt4
@@ -13,7 +13,10 @@ QMAKE-BIN	= qmake
 #QTDIR	= /usr/local/TrollTech/Qt-4.5.2
 #QTDIR	= /usr/local/TrollTech/Qt-4.8.0
 #QTDIR	= /usr/local/Qt/5.2.0/clang_64
-QTDIR	= /usr/local/Qt/5.6/clang_64
+#QTDIR	= /usr/local/Qt/5.6/clang_64
+
+# for HomeBrew
+QTDIR	= /usr/local/opt/qt
 
 
 # for MacPorts
@@ -79,7 +82,7 @@ install-mac: plugin
 	cp colormaps/*.map $(QFRACT_APP)/Contents/Resources/colormaps/
 	cp qfract-ja_JP.qm $(QFRACT_APP)/Contents/Resources/
 	sh install-mac-libs.sh
-	rsync -av $(QFRACT_APP)/Contents/ qfract-mac.app/Contents/Resources/qfract.app/Contents/
+	rsync -av --copy-links $(QFRACT_APP)/Contents/ qfract-mac.app/Contents/Resources/qfract.app/Contents/
 dist-mac:
 	zip -r qfract-`date "+%y%m%d"`-mac.zip qfract-mac.app README README.jp LICENSE
 	

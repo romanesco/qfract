@@ -5,7 +5,7 @@ QFRACT=qfract.app
 
 #QT_LIB_DIR=/Library/Frameworks
 #QT_LIB_DIR=/Developer/SDKs/QtSDK/Desktop/Qt/473/gcc/lib
-QTDIR=/usr/local/Qt/5.6/clang_64
+QTDIR=/usr/local/opt/qt
 
 QT_LIB_DIR=$QTDIR/lib
 QT_PLUGIN_DIR=$QTDIR/plugins
