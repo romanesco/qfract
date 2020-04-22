@@ -46,6 +46,7 @@ public:
   void setColorMap( ColorMap c ) { pix.setColorMap(c); }
   
   int maxOrbit() { return maxorbit; }
+  int orbitStep() { return orbitstep; }
   int paramNum() { return param.Num(); }
   ColorMap colorMap() { return pix.colorMap(); }
   double getParam(int i) { return param.Value(i); }
@@ -71,6 +72,7 @@ public slots:
   void save();
   void setRegion( Rect r ) { pix.setRegion( r ); }
   void setMaxOrbit(int m) { maxorbit=m; }
+  void setOrbitStep(int m) { orbitstep=m; }
   void setMaxIter(int m) { pix.setMaxIter(m); }
   void toggleOrbit( bool b ); 
   void mousePressEvent( QMouseEvent *e );
@@ -88,6 +90,7 @@ protected:
   
   Pixmap pix;
   int maxorbit;
+  int orbitstep;
   Parameter param;
   Point (*map)(Point, Point, Parameter ); // calculation function (map once)
   Point (*init)(Point, Parameter ); // get initial point

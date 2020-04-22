@@ -121,7 +121,8 @@ void MainWindow::setParam()
   int menuheight = menuBar()->size().height() + statusBar()->size().height();
   SetParam *sp= new SetParam( canvas->Region(), param,
 			      canvas->width(), canvas->height(),
-			      &maxiter, &maxorbit, canvas->ParamDesc(),
+			      &maxiter, &maxorbit, &orbitstep,
+			      canvas->ParamDesc(),
 			      this );
   
   connect( sp, SIGNAL( orbitSet() ), this, SLOT( orbitChanged() ) );
@@ -227,8 +228,12 @@ void MainWindow::open(const QString fn)
 	// max iteration times
 	int max = reader.text("Iteration").toInt();
 	int maxorbit = reader.text("Orbit").toInt();
+	int orbitstep = reader.text("OrbitStep").toInt();
+	if (orbitstep<=0) orbitstep = 1;
+
 	setMaxIter(max);
 	setMaxOrbit(maxorbit);
+	setOrbitStep(orbitstep);
 
 	// colormap
 	QString colormapname = reader.text("ColorMap");
@@ -275,6 +280,7 @@ void MainWindow::loadPlugin( const char *filename, bool needdrawing )
   setParam( plugin->Param() );
   setMaxIter( plugin->MaxIter() );
   setMaxOrbit( plugin->MaxOrbit() );
+  setOrbitStep(1);
 
   canvas->loadColorMap( plugin->ColorMap() );
 
@@ -312,6 +318,7 @@ void MainWindow::loadPluginAndColorMap(const char *filename,
 void MainWindow::orbitChanged()
 {
   canvas->setMaxOrbit( maxorbit );
+  canvas->setOrbitStep( orbitstep );
 }
 
 void MainWindow::paramChanged( Parameter p )

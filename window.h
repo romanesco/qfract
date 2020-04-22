@@ -45,6 +45,7 @@ public:
       { param.setNum(p.Num()); param.set(p); canvas->setParam(p); }
   void setMaxIter( int m ) { maxiter=m;canvas->setMaxIter(m); }
   void setMaxOrbit( int m ) { maxorbit=m;canvas->setMaxOrbit(m); }
+  void setOrbitStep( int m ) { orbitstep=m;canvas->setOrbitStep(m); }
 
   int paramNum() { return param.Num(); }
   double getParam(int i) { return param.Value(i); }
@@ -99,6 +100,7 @@ protected:
   Parameter param;
   int maxiter;
   int maxorbit;
+  int orbitstep;
   Plugin *plugin;
   MainWindow* child;
   QAction* SetOrbitId;

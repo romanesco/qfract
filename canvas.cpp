@@ -37,7 +37,7 @@ Canvas::Canvas( QWidget *parent )
   : QWidget( parent), //, Qt::WA_StaticContents ), // Flag OK?
       pix( this, width(), height(), -2.5, 2, 1.5, -2, 100,
 	   NULL, NULL, Parameter(0)),
-      maxorbit(10),     rect(), 
+      maxorbit(10), orbitstep(1),    rect(), 
       redrawEnabled( false ), isOrbit( false ),
       leftButtonPressed( false ), rightButtonPressed( false )
 {
@@ -168,8 +168,10 @@ void Canvas::drawOrbit( QMouseEvent *e )
                 + pix.dWidth()*pix.dWidth() + pix.dHeight()*pix.dHeight()+1);
   
   for (int i=0; i<maxorbit; i++) {
-    if (z.abs2() > r) break;
-    z = map(z,c,param);
+    for (int j=0; j<orbitstep; j++) {
+      if (z.abs2() > r) break;
+      z = map(z,c,param);
+    }
     path->lineTo( pix.getPos(z) );
   }
   repaint();
@@ -212,6 +214,7 @@ void Canvas::save()
   // max iteration times
   image->setText("Iteration", QString("%1").arg(pix.maxIter()));
   image->setText("Orbit", QString("%1").arg(maxorbit));
+  image->setText("OrbitStep", QString("%1").arg(orbitstep));
 
   // colormap
   image->setText("ColorMap", colorMap().Name());
@@ -229,6 +232,7 @@ void Canvas::zoom(QMouseEvent *e)
   win->setRegion(Rect(z1,z2));
   
   win->setMaxOrbit( maxOrbit() );
+  win->setOrbitStep( orbitStep() );
   win->setMaxIter( pix.maxIter() );
   
   win->setParam( param );
@@ -318,6 +322,8 @@ void Canvas::print()
 		      tr("Iteration:\t%1").arg(pix.maxIter()));
      painter.drawText(100*wunit, texttop + 19*hunit,
 		      tr("Orbit:\t%1").arg(maxorbit));
+     painter.drawText(100*wunit, texttop + 19*hunit,
+		      tr("Orbit step:\t%1").arg(orbitstep));
 
      // colormap
      painter.drawText(0, texttop + 26*hunit,

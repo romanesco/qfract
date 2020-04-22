@@ -18,7 +18,8 @@ using namespace QFract;
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-SetParam::SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo,
+SetParam::SetParam( Rect r, Parameter p, int w, int h,
+		    int *mi, int *mo, int *os, 
 		    const char **pdesc, QWidget *parent, Qt::WindowFlags f )
   : QDialog( parent, f)
 {
@@ -26,6 +27,7 @@ SetParam::SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo,
   param.set(p);
   maxiter=mi;
   maxorbit=mo;
+  orbitstep=os;
   width=w;
   height=h;
 
@@ -100,6 +102,15 @@ SetParam::SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo,
   label= new QLabel( tr("Forward orbit"), edmaxorbit );
   grid->addWidget( label, 6, 2 );
   
+  // orbit step
+  edorbitstep = new QLineEdit( this );
+  grid->addWidget(edorbitstep, 7, 3 );
+  edorbitstep->setText( QString::number(*orbitstep) );
+  edorbitstep->setModified(false);
+  
+  label= new QLabel( tr("Orbit step"), edorbitstep );
+  grid->addWidget( label, 7, 2 );
+  
   edmaxiter->setFocus();
   
   // parameters
@@ -156,6 +167,10 @@ void SetParam::accept()
   edmaxorbit->text().toInt(&b);
   if (b==false) return;
   *maxorbit = edmaxorbit->text().toInt();
+
+  edorbitstep->text().toInt(&b);
+  if (b==false) return;
+  *orbitstep = edorbitstep->text().toInt();
   emit orbitSet();
   
   for (int i=0; i<2; i++) {

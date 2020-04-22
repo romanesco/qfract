@@ -17,7 +17,7 @@ class SetParam : public QDialog
 {
   Q_OBJECT
 public:
-  SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo,
+  SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo, int *os,
 	    const char **pdesc, QWidget *parent=0, Qt::WindowFlags f=0 );
   void accept();
   
@@ -33,13 +33,15 @@ private:
   int width, height;
   int *maxiter;
   int *maxorbit;
+  int *orbitstep;
   
   QLineEdit *edsize[2];
   QLineEdit *edregion[2][2];
   QLineEdit **edparam;
   QLineEdit *edmaxiter;
   QLineEdit *edmaxorbit;
-  
+  QLineEdit *edorbitstep;
+
 };
 }
 #endif // SETPARAM_H
