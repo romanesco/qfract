@@ -2,7 +2,7 @@
 
 i=`basename $1 .cpp`
 
-DEBUG=""
+#DEBUG=""
 #DEBUG=echo
 
 # yes for Windows

@@ -8,7 +8,7 @@ using namespace QFract;
 #include <complex>
 using namespace std;
 
-const char* NAME = "Unicritical map (Julia set with rays)";
+const char* NAME = "Angle doubling map (Julia set with rays)";
 const char* CHILD = "";
 //const char* COLORMAP = "per2-2.map";
 const char* COLORMAP = "default2.map";
@@ -22,43 +22,48 @@ const double CIM = 1.0;
 
 const int MAXITER = 50;
 const int MAXORBIT = 10;
-const int N = 4;
-double VALUE[N]={0.0, 0.0, 3, 100};
+const int N = 3;
+double VALUE[N]={0.0, 0.0, 1};
 const Parameter PARAM( N, VALUE );
-const char* PARAMDESC[N] = { "Re(c)", "Im(c)", "degree", "R" };
+const char* PARAMDESC[N] = { "Re(c)", "Im(c)", "λ" };
 
 extern "C" {
 int iter(Point z, Parameter param, int max)
 {
     complex<double> a(param.Value(0), param.Value(1));
     complex<double> x(z.x,z.y);
-    double R=param.Value(3);
-    complex<double> tmp;
-
+    double t(param.Value(2));
+    double R = (norm(a) > 10) ? 2*norm(a) : 20;
+ 
     register int i,j;
     for ( i=0; (i<max) && (norm(x) < R ); i++ ) {
-	tmp=x;
-	for ( j=1; j<param.Value(2); j++)
-	    tmp *= x;
-	x = tmp + a;
+      double n=norm(x);
+      if (n > 0) {
+	x = (1+t*(n-1))/n * x*x + a;
+      } else {
+	x = a+1.0-t;
+      }
+      
     }
     
     if (i>=max)
 	return -1;
-    return i;
+    else 
+      return i + (imag(x)>0)*21;
 }
 
 Point map(Point z, Point c, Parameter param)
 {
     complex<double> a(param.Value(0), param.Value(1));
     complex<double> x(z.x,z.y);
-    complex<double> tmp;
+    double t(param.Value(2));
 
-    register int j;
-    tmp=x;
-    for ( j=1; j<param.Value(2); j++)
-	tmp *= x;
-    x = tmp + a;
+    double n=norm(x);
+    if (n > 0) {
+      x = (1+t*(n-1))/n * x*x + a;
+    } else {
+      x = a+1.0-t;
+    }
     
     return Point(real(x),imag(x));
 }

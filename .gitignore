@@ -13,4 +13,4 @@ moc_*.cpp
 *~
 *.swp
 plugins/platforms/
-
+.DS_Store

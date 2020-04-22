@@ -1,30 +1,25 @@
 /*
- * Cubic polynomials
- * z -> z^3 - 3 a^2 z + b (dynamical space)
+ * Biquadratic family
+ * z -> (z^2 + a)^2 + b (dynamical space)
  */
 
 #include "../plugin.h"
 using namespace QFract;
-#include "math.h"
 
 #define RE2IM2   re2=re*re; \
                  im2=im*im;
 
-#define INIT     register double Are, Aim; \
-		 Are=3*(are*are-aim*aim);\
-		 Aim=6*are*aim;
+#define FUNCTION im = 2*re*im + aim; \
+                 re = re2-im2 + are; \
+		 RE2IM2 \
+		 im = 2*re*im + bim; \
+                 re = re2-im2 + bre;
 
-#define FUNCTION tmp1 = re2-im2 - Are; \
-                 tmp2 = 2*re*im - Aim; \
-		 tmp3 = tmp1*re - tmp2*im + bre; \
-		 im = tmp1*im + tmp2*re + bim; \
-		 re = tmp3;
+#define INCOND  ( (re2+im2)<10 )
 
-#define INCOND  ( (re2+im2)<R2 )
-
-const char* NAME = "Cubic (Julia set)";
+const char* NAME = "Biquadratic family (Julia set)";
 const char* CHILD = "";
-const char* COLORMAP = "per2-2.map";
+const char* COLORMAP = "per2.map";
 
 const double XL = -2.0;
 const double YT = 2.0;
@@ -35,10 +30,10 @@ const double CIM = 1.0;
 
 const int MAXITER = 100;
 const int MAXORBIT = 10;
-const int N = 5;
-double VALUE[N] = {0.0, 0.0, 0.0, 0.0, 3.0};
+const int N = 4;
+double VALUE[N] = {0.0, 0.0, 0.0, 0.0};
 const Parameter PARAM(N, VALUE);
-const char* PARAMDESC[N] = { "Re(a)", "Im(a)", "Re(b)", "Im(b)", "Potential" };
+const char* PARAMDESC[N] = { "Re(a)", "Im(a)", "Re(b)", "Im(b)" };
 
 extern "C" {
 int iter(Point z, Parameter param, int max)
@@ -51,10 +46,6 @@ int iter(Point z, Parameter param, int max)
   register double bim=param.Value(3);
   register double re2=re*re;
   register double im2=im*im;
-  register double tmp1,tmp2,tmp3;
-  register double R2=exp(2*param.Value(4));
-
-  INIT
 
   register int i;
   for ( i=0; (i<max) && INCOND; i++ ) {
@@ -64,9 +55,12 @@ int iter(Point z, Parameter param, int max)
 
   if (i>=max)
     return -1;
-  if (im > 0)
-    return i*2;
-  return i*2+1;
+  else 
+    if (im > 0) {
+      return i*6;
+    } else {
+      return i*6+1;
+    }
 }
 
 Point map(Point z, Point c, Parameter param)
@@ -79,9 +73,6 @@ Point map(Point z, Point c, Parameter param)
   register double bim=param.Value(3);
   register double re2=re*re;
   register double im2=im*im;
-  register double tmp1,tmp2,tmp3;
-
-  INIT
 
   FUNCTION
 

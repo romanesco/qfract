@@ -1,6 +1,6 @@
 /*
  * Cubic Blaschke product with superattrctive fixed point
- * z^2(z-a)(1-conj(a)z)
+ * z^2(z-a)/(1-conj(a)z)
  * (parameter space)
  */
 
