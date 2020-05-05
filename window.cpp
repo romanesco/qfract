@@ -366,10 +366,10 @@ void MainWindow::setInitialSize( int w, int h)
 {
   canvas->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
   canvas->setMinimumSize(w,h);
-  resize(w,h+20);
+  resize(w+5,h+menuBar()->size().height() + statusBar()->size().height()+5);
   //canvas->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
   canvas->setMinimumSize(0,0);
-  setMaximumSize(w, h+menuBar()->size().height() + statusBar()->size().height()); 
+  setMaximumSize(w+5, h+menuBar()->size().height() + statusBar()->size().height()+5); 
 }
 
 /*
@@ -385,8 +385,8 @@ void MainWindow::setParamSize( Parameter param, int w, int h )
   canvas->setMaxIter( maxiter );
   canvas->setParam( param );
   //cerr << menuBar()->size().height() + statusBar()->size().height() << endl;
-  setMaximumSize(w, h+menuBar()->size().height() + statusBar()->size().height()); 
-  resize(w, h+menuBar()->size().height() + statusBar()->size().height()); 
+  setMaximumSize(w+5, h+menuBar()->size().height() + statusBar()->size().height()+5); 
+  resize(w+5, h+menuBar()->size().height() + statusBar()->size().height()+5); 
   canvas->resize(w,h);
 }
 
@@ -405,7 +405,7 @@ void MainWindow::zoom()
   }
 
   int w=width(), h=height();
-  scrollArea->resize( w, h-MENUHEIGHT );
+  scrollArea->resize( w-5, h-MENUHEIGHT-5 );
   canvas->resize(scrollArea->width(), scrollArea->height());
   setMaximumSize(w, h);
   canvas->draw();
