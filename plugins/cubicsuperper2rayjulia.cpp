@@ -73,8 +73,8 @@ int iter(Point z, Parameter param, int max)
       complex<double> a(are,aim), x(re,im);
       x *= sqrta;
       if (imag(x) < 0)
-	  return i*4+11;
-      return i*4;
+	  return i*12+11;
+      return i*12;
   }
 }
 
