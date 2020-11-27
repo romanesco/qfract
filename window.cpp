@@ -342,7 +342,7 @@ void MainWindow::receiveParam( Point z, Parameter p )
   if (n<2) { paramChanged(); return; }
   param.setValue( 1, z.y );
   
-  for (int i=0; i<n; i++) {
+  for (int i=0; i<p.Num(); i++) {
     if (n <= i+2 ) { paramChanged(); return; }
     param.setValue( i+2, p.Value(i) );
   }
