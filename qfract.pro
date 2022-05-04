@@ -1,7 +1,7 @@
 TEMPLATE	= app
 TARGET		= qfract
-#CONFIG		+= qt warn_on release
-CONFIG		+= qt warn_on release debug
+CONFIG		+= qt warn_on release
+#CONFIG		+= qt warn_on release debug
 QT		+= widgets printsupport
 QMAKE_CXXFLAGS_RELEASE		+= -O3
 QMAKE_LFLAGS_RELEASE		+= -O3

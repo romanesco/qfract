@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#DEBUG=
-DEBUG=echo
+DEBUG=
+#DEBUG=echo
 
 #QFRACT=build/Release/qfract.app
 QFRACT=qfract.app
@@ -50,27 +50,27 @@ FRAMEWORK_ORIGINAL_DIR=$QT_LIB_DIR
 
 for i in Core Gui PrintSupport Widgets DBus
 do
-  ${DEBUG} mkdir -p $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/Current
-  ${DEBUG} cp $QT_LIB_DIR/Qt$i.framework/Versions/Current/Qt$i \
-    $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/Current/
+  ${DEBUG} mkdir -p $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/A
+  ${DEBUG} cp $QT_LIB_DIR/Qt$i.framework/Versions/A/Qt$i \
+    $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/A/
   ${DEBUG} install_name_tool -id \
-    $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/Current/Qt$i \
-    $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/Current/Qt$i
-  ${DEBUG} install_name_tool -change $FRAMEWORK_ORIGINAL_DIR/Qt$i.framework/Versions/Current/Qt$i \
-    $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/Current/Qt$i \
+    $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/A/Qt$i \
+    $FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/A/Qt$i
+  ${DEBUG} install_name_tool -change $FRAMEWORK_ORIGINAL_DIR/Qt$i.framework/Versions/A/Qt$i \
+    $FRAMEWORK_REFERENCE_DIR/Qt$i.framework/Versions/A/Qt$i \
     $QFRACT/Contents/MacOS/qfract
 done
 
 for i in Core Gui PrintSupport Widgets DBus
 do
-FILE=$FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/Current/Qt$i
+FILE=$FRAMEWORK_INSTALL_DIR/Qt$i.framework/Versions/A/Qt$i
   for j in Core Gui Widgets
   do
      ORIGINAL=`otool -L $FILE | grep -v : | grep Qt$j | awk '{print $1}'`
-     #${DEBUG} install_name_tool -change $QT_LIB_DIR/Qt$j.framework/Versions/Current/Qt$j \
-     #${DEBUG} install_name_tool -change $FRAMEWORK_ORIGINAL_DIR/Qt$j.framework/Versions/Current/Qt$j \
+     #${DEBUG} install_name_tool -change $QT_LIB_DIR/Qt$j.framework/Versions/A/Qt$j \
+     #${DEBUG} install_name_tool -change $FRAMEWORK_ORIGINAL_DIR/Qt$j.framework/Versions/A/Qt$j \
      ${DEBUG} install_name_tool -change $ORIGINAL \
-     $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/Current/Qt$j \
+     $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/A/Qt$j \
      $FILE
   done
 done
@@ -87,12 +87,12 @@ ${DEBUG} install_name_tool -id \
 for j in Core Gui Widgets PrintSupport DBus
 do
    ORIGINAL=`otool -L $LIBQCOCOA | grep -v : | grep Qt$j | awk '{print $1}'`
-   #${DEBUG} install_name_tool -change @rpath/Qt$j.framework/Versions/Current/Qt$j \
+   #${DEBUG} install_name_tool -change @rpath/Qt$j.framework/Versions/A/Qt$j \
    ${DEBUG} install_name_tool -change $ORIGINAL \
-   $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/Current/Qt$j \
+   $FRAMEWORK_REFERENCE_DIR/Qt$j.framework/Versions/A/Qt$j \
    $LIBQCOCOA
 done
 
 
-#cp -R $QT_LIB_DIR/QtGui.framework/Versions/Current/Resources/qt_menu.nib \
+#cp -R $QT_LIB_DIR/QtGui.framework/Versions/A/Resources/qt_menu.nib \
 #  $QFRACT/Contents/Resources/

@@ -82,7 +82,7 @@ install-mac: plugin
 	install plugins/*.so $(QFRACT_APP)/Contents/Resources/plugins/
 	cp colormaps/*.map $(QFRACT_APP)/Contents/Resources/colormaps/
 	cp qfract-ja_JP.qm $(QFRACT_APP)/Contents/Resources/
-	sh install-mac-libs.sh
+	#sh install-mac-libs.sh
 	rsync -av --copy-links $(QFRACT_APP)/ qfract-mac.app/Contents/Resources/qfract.app/
 dist-mac:
 	zip -r qfract-`date "+%y%m%d"`-mac.zip qfract-mac.app README README.jp LICENSE
