@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget* parent)
   file->addAction( tr("&Open..."), this, SLOT( open() ), CTRL+Key_O );
   file->addAction( tr("&Save..."), canvas, SLOT( save() ), CTRL+Key_S );
   file->addSeparator();
-  file->addAction( tr("&Print..."), canvas, SLOT( print() ), CTRL+SHIFT+Key_P );
+  file->addAction( tr("&Print..."), canvas, SLOT( print() ), CTRL | SHIFT | Key_P ); 
   file->addSeparator();
   file->addAction( tr("&Close"), this, SLOT( close() ), CTRL+Key_W );
   file->addAction( tr("E&xit"), qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );

@@ -18,7 +18,7 @@ class SetParam : public QDialog
   Q_OBJECT
 public:
   SetParam( Rect r, Parameter p, int w, int h, int *mi, int *mo, int *os,
-	    const char **pdesc, QWidget *parent=0, Qt::WindowFlags f=0 );
+	    const char **pdesc, QWidget *parent=0, Qt::WindowFlags f=Qt::WindowFlags() );
   void accept();
   
 signals:

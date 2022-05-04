@@ -65,8 +65,8 @@ int iter(Point z, Parameter param, int max)
   if (i>=max)
     return -1;
   if (im > 0)
-    return i*2;
-  return i*2+1;
+    return i*12;
+  return i*12+1;
 }
 
 Point map(Point z, Point c, Parameter param)

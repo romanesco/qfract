@@ -287,7 +287,7 @@ void Canvas::print()
 	      << t << ", " << b << endl;
      }
      */
-     QRect pagerect=printer.pageRect();
+     QRectF pagerect=printer.pageRect(QPrinter::DevicePixel);
      QRectF pagerectf=printer.pageRect(QPrinter::Millimeter);
      // millimeters in QPrinter::DevicePixel
      double wunit=pagerect.width()/pagerectf.width();

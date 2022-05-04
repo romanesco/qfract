@@ -16,7 +16,8 @@ QMAKE-BIN	= qmake
 #QTDIR	= /usr/local/Qt/5.6/clang_64
 
 # for HomeBrew
-QTDIR	= /usr/local/opt/qt
+#QTDIR	= /usr/local/opt/qt
+QTDIR	= /opt/homebrew/opt/qt
 
 
 # for MacPorts

@@ -3,6 +3,7 @@
  * z -> (z^2 + conj(c))^2 + c (parameter space with external rays)
  */
 
+#include <cmath>
 #include "../plugin.h"
 using namespace QFract;
 
@@ -33,18 +34,19 @@ const double CIM = 1.0;
 
 const int MAXITER = 100;
 const int MAXORBIT = 10;
-const int N = 1;
-double VALUE[N] = {100};
+const int N = 2;
+double VALUE[N] = {100, 0};
 const Parameter PARAM(N, VALUE);
-const char* PARAMDESC[N] = { "escape radius" };
+const char* PARAMDESC[N] = { "escape radius", "rotation" };
 
 extern "C" {
 int iter(Point z, Parameter param, int max)
 {
   register double re=0.0;
   register double im=0.0;
-  register double are=z.x;
-  register double aim=z.y;
+  register double t=-param.Value(1);
+  register double are=cos(t)*z.x-sin(t)*z.y;
+  register double aim=sin(t)*z.x+cos(t)*z.y;
   register double re2=re*re;
   register double im2=im*im;
 
@@ -67,16 +69,21 @@ int iter(Point z, Parameter param, int max)
 
 Point map(Point z, Point c, Parameter param)
 {
-  register double re=z.x;
-  register double im=z.y;
-  register double are=c.x;
-  register double aim=c.y;
+  register double t=-param.Value(1);
+  //register double re=z.x;
+  //register double im=z.y;
+  register double re=cos(t)*z.x-sin(t)*z.y;
+  register double im=sin(t)*z.x+cos(t)*z.y;
+  register double are=cos(t)*c.x-sin(t)*c.y;
+  register double aim=sin(t)*c.x+cos(t)*c.y;
   register double re2=re*re;
   register double im2=im*im;
 
-  FUNCTION
+  FUNCTION;
 
-  return Point(re,im);
+  are = cos(-t)*re-sin(-t)*im;
+  aim = sin(-t)*re+cos(-t)*im;
+  return Point(are,aim);
 }
 
 Point init(Point c, Parameter param) {return Point(0,0);}

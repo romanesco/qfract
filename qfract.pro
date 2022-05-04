@@ -1,7 +1,7 @@
 TEMPLATE	= app
 TARGET		= qfract
-CONFIG		+= qt warn_on release
-#CONFIG		+= qt warn_on release debug
+#CONFIG		+= qt warn_on release
+CONFIG		+= qt warn_on release debug
 QT		+= widgets printsupport
 QMAKE_CXXFLAGS_RELEASE		+= -O3
 QMAKE_LFLAGS_RELEASE		+= -O3
@@ -29,8 +29,12 @@ win32:LIBS    += c:/Users/inyo/Downloads/dlfcn-win32-master/libdl.a -lpsapi
 # for Mac 
 # -stdlib=libc++ is required because boost libraries are
 # linked to libc++.1.dylib and not libstdc++.6.dylib
-macx:QMAKE_CXXFLAGS_RELEASE		+= -I/usr/local/include -stdlib=libc++
-macx:QMAKE_LFLAGS_RELEASE	+= -L/usr/local/lib -stdlib=libc++
+macx:QMAKE_CXXFLAGS_RELEASE		+= -I/opt/homebrew/include -stdlib=libc++
+macx:QMAKE_LFLAGS_RELEASE	+= -L/opt/homebrew/lib -stdlib=libc++
+macx:QMAKE_CXXFLAGS_DEBUG		+= -I/opt/homebrew/include -stdlib=libc++
+macx:QMAKE_LFLAGS_DEBUG	+= -L/opt/homebrew/lib -stdlib=libc++
+#macx:QMAKE_CXXFLAGS_RELEASE		+= -I/usr/local/include -stdlib=libc++
+#macx:QMAKE_LFLAGS_RELEASE	+= -L/usr/local/lib -stdlib=libc++
 #macx:QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.11
 #macx:QMAKE_MAC_SDK = macosx10.11
 

@@ -20,10 +20,10 @@ const double YB = -25.0;
 
 const int MAXITER = 200;
 const int MAXORBIT = 10;
-const int N = 2;
-double VALUE[N]={3, 10};
+const int N = 3;
+double VALUE[N]={3, 10, 10000};
 const Parameter PARAM( N, VALUE );
-const char* PARAMDESC[N]={ "p", "q" };
+const char* PARAMDESC[N]={ "p", "q", "R" };
 
 extern "C" {
 int iter(Point z, Parameter param, int max)
@@ -38,7 +38,7 @@ int iter(Point z, Parameter param, int max)
       x = (-b - sqrt(b*b - 4.0))/2.0; // x^2 + bx + 1 = 0
     }
     x = pow(x,1./q);
-    double R=10000; 
+    double R=param.Value(2); 
     complex<double> tmp, tmp2;
 
     register int i,j;
