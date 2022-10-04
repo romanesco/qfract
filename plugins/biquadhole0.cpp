@@ -32,11 +32,12 @@ const double CIM = 1.0;
 const int MAXITER = 100;
 const int MAXORBIT = 10;
 const int N = 18;
+const double p = 0.1649077112, q = 0.687608498;
 double VALUE[N] = {
-  0.3517, -0.6396, 0.3068, 0.6108,
-  -0.5940, -0.4285, 0.5597, -0.3878,
-  0.1528, 0.6139, 0.7542, 0.1761,
-  0.7072, -0.1744, 0.1545, -0.6675,
+  q, -p, -p, q,
+  -p, -q, q, p,
+  p, q, q, p,
+  q, -p, p, -q,
   0, 0};
 const Parameter PARAM(N, VALUE);
 const char* PARAMDESC[N] = {
@@ -73,7 +74,7 @@ int iter(Point z, Parameter param, int max)
   register double w3 = param.Value(14);
   register double w4 = param.Value(15);
   
-  register double are=v1*x1+v2*y2+v3*z1+v4*w1;
+  register double are=v1*x1+v2*y1+v3*z1+v4*w1;
   register double aim=v1*x2+v2*y2+v3*z2+v4*w2;
   register double bre=v1*x3+v2*y3+v3*z3+v4*w3;
   register double bim=v1*x4+v2*y4+v3*z4+v4*w4;
@@ -130,7 +131,7 @@ Point map(Point z, Point c, Parameter param)
   register double w3 = param.Value(14);
   register double w4 = param.Value(15);
   
-  register double are=v1*x1+v2*y2+v3*z1+v4*w1;
+  register double are=v1*x1+v2*y1+v3*z1+v4*w1;
   register double aim=v1*x2+v2*y2+v3*z2+v4*w2;
   register double bre=v1*x3+v2*y3+v3*z3+v4*w3;
   register double bim=v1*x4+v2*y4+v3*z4+v4*w4;
