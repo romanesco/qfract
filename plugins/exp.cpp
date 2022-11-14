@@ -31,7 +31,8 @@ int iter(Point z, Parameter param, int max)
     complex<long double> x=a;
 
     register int i,j;
-    for ( i=0; (i<max) && (!isinf(real(x))) && (!isinf(imag(x))); i++ ) {
+    // for ( i=0; (i<max) && (!isinf(real(x))) && (!isinf(imag(x))); i++ ) {
+    for ( i=0; (i<max) && (real(x) < 10000) ; i++ ) {
       x = exp(x) + a;
     }
     
