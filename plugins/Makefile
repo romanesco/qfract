@@ -36,7 +36,7 @@ else
       #	 for Mac OS X (Arm)
       ifeq ($(ARCH),arm)
         #CXXFLAGS	=  -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-        CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
+        CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math
       endif # ARCH=i386
     endif # MAC_UNIVERSAL=yes
   endif # UNAME=Darwin
