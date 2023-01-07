@@ -3,7 +3,7 @@
  */
 
 #include <iostream> //for test
-using namespace std;
+
 #include <qapplication.h>
 #include <qtranslator.h>
 #include <qlocale.h>
@@ -27,6 +27,7 @@ TCHAR path[PATH_MAX];
 char PLUGIN_PATH[PATH_MAX], COLORMAP_PATH[PATH_MAX];
 #endif // Q_OS_WIN
 
+using namespace std;
 using namespace QFract;
 
 int main( int argc, char ** argv ) {

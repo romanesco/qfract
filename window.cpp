@@ -26,6 +26,7 @@ using namespace QFract;
 #include <qfiledialog.h>
 //
 using namespace Qt;
+using namespace std;
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow( parent )

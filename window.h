@@ -5,10 +5,6 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-// for debug
-#include <iostream>
-using namespace std;
-
 #include <QMainWindow>
 #include <QScrollArea>
 //Added by qt3to4:

@@ -8,10 +8,6 @@
 #include "pixmap.h"
 #include "plugin.h"
 
-// for debug
-#include <iostream>
-using namespace std;
-
 #include <qwidget.h>
 #include <qpoint.h>
 #include <qstring.h>
