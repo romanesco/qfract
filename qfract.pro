@@ -12,14 +12,14 @@ win32:RC_FILE	= qfract.rc
 macx:ICON	= qfract.icns
 
 # for Win
-win32:QMAKE_CXXFLAGS_RELEASE    += -march=i686
+# win32:QMAKE_CXXFLAGS_RELEASE    += -march=i686
 #  Boost
-win32:QMAKE_CXXFLAGS_RELEASE	+= -Ic:/Users/inyo/Downloads/boost_1_60_0 -ffast-math
-win32:QMAKE_LFLAGS_RELEASE	+= -Lc:/Users/inyo/Downloads/boost_1_60_0/stage/lib
-win32:LIBS	+= -lboost_thread-mgw49-mt-1_60 -lboost_system-mgw49-mt-1_60
+win32:QMAKE_CXXFLAGS_RELEASE	+= -Ic:/Users/inou/Downloads/boost_1_81_0 -ffast-math
+win32:QMAKE_LFLAGS_RELEASE	+= -Lc:/Users/inou/Downloads/boost_1_81_0/stage/lib
+win32:LIBS	+= -lboost_thread-mgw11-mt-x64-1_81 -lboost_system-mgw11-mt-x64-1_81
 #  dlfcn (from http://code.google.com/p/dlfcn-win32/)
-win32:QMAKE_CXXFLAGS_RELEASE      += -Ic:/Users/inyo/Downloads/dlfcn-win32-master
-win32:LIBS    += c:/Users/inyo/Downloads/dlfcn-win32-master/libdl.a -lpsapi
+win32:QMAKE_CXXFLAGS_RELEASE      += -Ic:/Users/inou/Downloads/dlfcn-win32/src
+win32:LIBS    += c:/Users/inou/Downloads/dlfcn-win32/libdl.a -lpsapi
 #win32:LIBS	+= -ldl
 
 # for Mac (fink 32bit)
@@ -39,7 +39,7 @@ macx:QMAKE_LFLAGS_DEBUG	+= -L/opt/homebrew/lib -stdlib=libc++
 #macx:QMAKE_MAC_SDK = macosx10.11
 
 # for Boost (Mac, Linux)
-LIBS	+= -lboost_thread-mt -lboost_system-mt
+macx:LIBS	+= -lboost_thread-mt -lboost_system-mt
 
 # for universal binary for Mac
 #QMAKE_MAC_SDK	= /Developer/SDKs/MacOSX10.4u.sdk

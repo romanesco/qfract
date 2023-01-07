@@ -6,7 +6,6 @@
 #define PIXMAP_H
 
 #include <boost/thread.hpp>
-using namespace boost;
 
 #include <qimage.h>
 #include <qpoint.h>
@@ -15,6 +14,8 @@ using namespace boost;
 #include "double.h"
 #include "colormap.h"
 #include "config.h"
+
+using namespace boost;
 
 namespace QFract {
 class Canvas;

@@ -43,8 +43,9 @@ else
 
 endif # Windows_NT
 
-#	 for Win32 (MinGW)
-#CXXFLAGS	= -shared -Wall -W -pipe -O3
+# for buinding Windows (MinGW) binary with WSL etc.(Note that Qt version of MinGW does not contain make)
+#CXX = /mnt/c/Qt/Tools/mingw1120_64/bin/g++.exe
+#CXXFLAGS	= -shared -Wall -W -pipe -O3 -ffast-math
 
 HEADERS =	../plugin.h \
 		../double.h
