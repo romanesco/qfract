@@ -5,6 +5,7 @@
 
 # default
 #QTDIR	= /usr
+QTDIR	= /Users/inou/Qt/6.4.2/macos
 MAKE	= make
 QMAKE-BIN	= qmake
 #QMAKE-BIN	= qmake-qt4
@@ -17,7 +18,7 @@ QMAKE-BIN	= qmake
 
 # for HomeBrew
 #QTDIR	= /usr/local/opt/qt
-QTDIR	= /opt/homebrew/opt/qt
+#QTDIR	= /opt/homebrew/opt/qt
 
 
 # for MacPorts
