@@ -3,13 +3,16 @@ QFract -- a Qt based fractal viewer
 QFract is a fast viewer for Mandelbrot set, Julia set and so on.
 
 Supported platforms are:
-- Mac OS X (10.4 or later),
+- Mac OS X,
 - Windows (with MinGW),
 - Linux, Mac OS X+X11, FreeBSD, etc. on X Window System.
 
 QFract is licensed under GNU GPL v2 (up to now).
 Since Qt open source edition is licensed under LGPL from version 4.5,
 I might change the license to BSDL or something in the future...
+
+Source code is available in GitHub: 
+https://github.com/romanesco/qfract
 
 Usage:
 

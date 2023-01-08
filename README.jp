@@ -3,7 +3,7 @@ QFract -- a Qt based fractal viewer
 Mandelbrot 集合や Julia 集合などを高速に表示するビューワです. 
 
 動作環境は:
-- Mac OS X (10.4 以降)
+- Mac OS X
 - Windows (MinGW を使用)
 - Linux, Mac OS X, FreeBSD などの X Window System が動く環境
 です. X 上で動かす場合はソースコードからコンパイルしてください. 
@@ -11,6 +11,9 @@ Mandelbrot 集合や Julia 集合などを高速に表示するビューワで�
 ライセンスは, とりあえず GNU GPL v2 にしておきます. 
 Qt4.5 から open source 版が LGPL になったので, 
 BSDL か何かに変えるかもしれませんが...
+
+ソースコードはGitHubで公開しています：
+https://github.com/romanesco/qfract
 
 使い方:
 
