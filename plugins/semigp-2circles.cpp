@@ -28,40 +28,39 @@ const char* PARAMDESC[N] = { "Re(c)", "Im(c)", "Re(a)", "Im(a)", "K" };
 extern "C" {
 int iter(Point z, Parameter param, int max)
 {
-  complex<double> c(param.Value(0), param.Value(1)),
+  complex<double> b(param.Value(0), param.Value(1)),
     a(param.Value(2), param.Value(3));
   complex<double> x(z.x,z.y), y;
-  double R=param.Value(3)*param.Value(3)*norm(c);
+  double R=param.Value(3)*param.Value(3)*norm(b);
   
   register int i,j;
-  bool map;
+  bool mapind;
   for ( i=0; (i<max) && (norm(x) < R ); i++ ) {
-    map=0;
+    mapind=0;
     y=x*x;
     if (norm(y)>= R) {
-      y = a*(x-c)*(x-c)+c;
-      map=1;
+      y = a*(x-b)*(x-b)+b;
+      mapind=1;
     }
   }
 
   if (i>=max)
     return -1;
-  return i*2+21*map;
+  return i*2+21*mapind;
 }
 
 Point map(Point z, Point c, Parameter param)
 {
-  complex<double> c(param.Value(0), param.Value(1)),
+  complex<double> b(param.Value(0), param.Value(1)),
     a(param.Value(2), param.Value(3));
   complex<double> x(z.x,z.y), y;
-  double R=param.Value(3)*param.Value(3)*norm(c);
+  double R=param.Value(3)*param.Value(3)*norm(b);
   
   if (norm(x)>=R) return z;
   
   y=x*x;
   if (norm(y)>= R) {
-    y = a*(x-c)*(x-c)+c;
-    map=1;
+    y = a*(x-b)*(x-b)+b;
   }
   return Point(real(x),imag(x));
 }
