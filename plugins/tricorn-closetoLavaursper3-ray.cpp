@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <iomanip>
-using namespace std;
+//using namespace std;
 
 #include <boost/thread.hpp>
 

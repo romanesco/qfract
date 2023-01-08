@@ -48,7 +48,8 @@ endif # Windows_NT
 #CXXFLAGS	= -shared -Wall -W -pipe -O3 -ffast-math
 
 # for boost/numeric/ublas/matrix.hpp
-CXXFLAGS += -I/opt/homebrew/include
+#CXXFLAGS += -I/opt/homebrew/include
+#CXXFLAGS += -Ic:/Users/inou/Downloads/boost_1_81_0/
 
 HEADERS =	../plugin.h \
 		../double.h
@@ -397,6 +398,7 @@ SOURCES =	\
 	unicritjulia.cpp \
 	weierstrassp.cpp \
 	yamagishi.cpp
+
 OBJECTS = \
 	Q.so \
 	Q2.so \
@@ -548,7 +550,6 @@ OBJECTS = \
 	cut-open-airplane.so \
 	cut-open-basilica-2.so \
 	cut-open-basilica.so \
-	cut-open-rabbit.so \
 	doublestandard.so \
 	doublestandardjulia.so \
 	exp.so \
@@ -701,10 +702,6 @@ OBJECTS = \
 	tricorn-attr.so \
 	tricorn-closetoLavaurs-ray.so \
 	tricorn-closetoLavaurs-rayjulia.so \
-	tricorn-closetoLavaursper3-julia.so \
-	tricorn-closetoLavaursper3-ray.so \
-	tricorn-closetoLavaursper3-rayjulia.so \
-	tricorn-closetoLavaursper3.so \
 	tricorn-fix.so \
 	tricorn-fixjulia.so \
 	tricorn-green.so \
@@ -721,13 +718,9 @@ OBJECTS = \
 	tricorn.so \
 	tricornjulia.so \
 	tricornjulialavaurs.so \
-	tricornjulialavaursper3-prefatou.so \
-	tricornjulialavaursper3-ray-prefatou.so \
-	tricornjulialavaursper3.so \
 	tricornlavaurs-ray.so \
 	tricornlavaurs-rayjulia.so \
 	tricornlavaurs.so \
-	tricornlavaursper3.so \
 	typeE2.so \
 	typeE2julia.so \
 	typeE3.so \
@@ -742,6 +735,15 @@ OBJECTS = \
 	unicritjulia.so \
 	weierstrassp.so \
 	yamagishi.so
+#	cut-open-rabbit.so \
+#	tricorn-closetoLavaursper3-julia.so \
+#	tricorn-closetoLavaursper3-ray.so \
+#	tricorn-closetoLavaursper3-rayjulia.so \
+#	tricorn-closetoLavaursper3.so \
+#	tricornjulialavaursper3-prefatou.so \
+#	tricornjulialavaursper3-ray-prefatou.so \
+#	tricornjulialavaursper3.so \
+
 .SUFFIXES: .cpp .so
 
 .cpp.so: $(HEADERS)
