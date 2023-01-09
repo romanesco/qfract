@@ -105,6 +105,10 @@ SOURCES =	\
 	biquadtransvTricorn.cpp \
 	biquadtransvTricorn0.cpp \
 	biquadtransvTricornjulia.cpp \
+	blaschke6modal.cpp \
+	blaschke6modaljulia.cpp \
+	blaschke6modalray.cpp \
+	blaschke6modalrayjulia.cpp \
 	blaschkebiquadsuper.cpp \
 	blaschkebiquadsuperjulia.cpp \
 	blaschkecubicsuper-log.cpp \
@@ -451,6 +455,10 @@ OBJECTS = \
 	biquadtransvTricorn.so \
 	biquadtransvTricorn0.so \
 	biquadtransvTricornjulia.so \
+	blaschke6modal.so \
+	blaschke6modaljulia.so \
+	blaschke6modalray.so \
+	blaschke6modalrayjulia.so \
 	blaschkebiquadsuper.so \
 	blaschkebiquadsuperjulia.so \
 	blaschkecubicsuper-log.so \
