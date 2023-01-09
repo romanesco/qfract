@@ -24,7 +24,7 @@ const double XR = 1.5; // x right = maximal x value
 const double YB = -1.5; // y bottom = minimal y value
 
 // number of maximal iteration
-const int MAXITER = 100;
+const int MAXITER = 50;
 // number of maximal iteration for forward orbit
 const int MAXORBIT = 100;
 
@@ -107,9 +107,9 @@ int iter(Point z, Parameter param, int max)
   if (i>=max){
     return -1;
   } else if (norm(x)<0.01) {
-    return i*2 + inD*32;
+    return i*6 + inD*32;
   } else {
-    return i*2+inD*32 + 64;
+    return i*6 + inD*32 + 8;
   }
 
 }
