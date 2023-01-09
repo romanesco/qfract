@@ -1,5 +1,6 @@
 qfract
 qfract.app
+qfract-arm.app
 Makefile.qmake
 .qmake.stash
 moc_*.cpp

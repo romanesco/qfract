@@ -9,7 +9,7 @@ i=`basename $1 .cpp`
 #WIN32=yes
 
 # yes if you are building universal binary for Mac
-#MAC_UNIVERSAL=yes
+MAC_UNIVERSAL=yes
 
 OS=`uname`
 
@@ -25,18 +25,9 @@ fi
 # Mac OS X
 if [ $OS = "Darwin" ]; then
     if [ "x"$MAC_UNIVERSAL = xyes ]; then
-	CXXFLAGS="-arch ppc -arch i386 -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math"
+	CXXFLAGS="-arch arm64 -arch x86_64 -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math"
     else
-	ARCH=`uname -p`
-        # Mac OS X (PPC)
-	if [ $ARCH="powerpc" ]; then
-	    CXXFLAGS="-bundle -flat_namespace -undefined suppress -pipe -O3 -mpowerpc-gfxopt -ffast-math"
-	fi
-        # Mac OS X (Intel)
-	if [ $ARCH="i386" ]; then
-	    #CXXFLAGS="-arch i386 -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math"
-	    CXXFLAGS="-bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math"
-	fi
+	CXXFLAGS="-bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math"
     fi
 fi
 

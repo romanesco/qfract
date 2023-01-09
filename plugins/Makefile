@@ -8,7 +8,7 @@ else
 
 # not Windows
   # build universal binary for Mac
-  #MAC_UNIVERSAL	= yes
+  MAC_UNIVERSAL	= yes
 
   UNAME	= $(shell uname)
 
@@ -21,23 +21,16 @@ else
   ifeq ($(UNAME),Darwin)
   #	for Mac OS X (Universal)
     ifeq ($(MAC_UNIVERSAL),yes)
-      CXXFLAGS	= -arch ppc -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
+      CXXFLAGS	= -arch arm64 -arch x86_64 -bundle -flat_namespace -undefined suppress -pipe -fast -O3 -ffast-math
     else
-      ARCH	= $(shell uname -p)
-      #Mac OS X (PPC)
-      ifeq ($(ARCH),powerpc)
-        CXXFLAGS	= -bundle -flat_namespace -undefined suppress -pipe -fast -mpowerpc-gfxopt -ffast-math
-      endif
-      #	 for Mac OS X (Intel)
-      ifeq ($(ARCH),i386)
-        #CXXFLAGS	=  -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-        CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-      endif # ARCH=i386
+      CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math
+      # use below to change behavior depending on architecture
+      #ARCH	= $(shell uname -p)
       #	 for Mac OS X (Arm)
-      ifeq ($(ARCH),arm)
+      #ifeq ($(ARCH),arm)
         #CXXFLAGS	=  -arch i386 -bundle -flat_namespace -undefined suppress -pipe -fast -ffast-math
-        CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math
-      endif # ARCH=i386
+        #CXXFLAGS	=  -bundle -flat_namespace -undefined suppress -pipe -O3 -ffast-math
+      #endif
     endif # MAC_UNIVERSAL=yes
   endif # UNAME=Darwin
 
@@ -49,6 +42,7 @@ endif # Windows_NT
 
 # for boost/numeric/ublas/matrix.hpp
 #CXXFLAGS += -I/opt/homebrew/include
+CXXFLAGS += -I/Users/inou/work/boost_1_81_0
 #CXXFLAGS += -Ic:/Users/inou/Downloads/boost_1_81_0/
 
 HEADERS =	../plugin.h \
@@ -742,15 +736,15 @@ OBJECTS = \
 	unicrit.so \
 	unicritjulia.so \
 	weierstrassp.so \
-	yamagishi.so
-#	cut-open-rabbit.so \
-#	tricorn-closetoLavaursper3-julia.so \
-#	tricorn-closetoLavaursper3-ray.so \
-#	tricorn-closetoLavaursper3-rayjulia.so \
-#	tricorn-closetoLavaursper3.so \
-#	tricornjulialavaursper3-prefatou.so \
-#	tricornjulialavaursper3-ray-prefatou.so \
-#	tricornjulialavaursper3.so \
+	yamagishi.so #\
+	cut-open-rabbit.so \
+	tricorn-closetoLavaursper3-julia.so \
+	tricorn-closetoLavaursper3-ray.so \
+	tricorn-closetoLavaursper3-rayjulia.so \
+	tricorn-closetoLavaursper3.so \
+	tricornjulialavaursper3-prefatou.so \
+	tricornjulialavaursper3-ray-prefatou.so \
+	tricornjulialavaursper3.so \
 
 .SUFFIXES: .cpp .so
 

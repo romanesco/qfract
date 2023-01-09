@@ -22,24 +22,29 @@ win32:QMAKE_CXXFLAGS_RELEASE      += -Ic:/Users/inou/Downloads/dlfcn-win32/src
 win32:LIBS    += c:/Users/inou/Downloads/dlfcn-win32/libdl.a -lpsapi
 #win32:LIBS	+= -ldl
 
-# for Mac (fink 32bit)
-#QMAKE_CXXFLAGS_RELEASE		+= -arch i386 -I/sw/include -fast -ffast-math
-#QMAKE_LFLAGS_RELEASE	+= -arch i386 -L/sw/lib
-
 # for Mac 
 # -stdlib=libc++ is required because boost libraries are
 # linked to libc++.1.dylib and not libstdc++.6.dylib
-macx:QMAKE_CXXFLAGS_RELEASE		+= -I/opt/homebrew/include -stdlib=libc++
-macx:QMAKE_LFLAGS_RELEASE	+= -L/opt/homebrew/lib -stdlib=libc++
-macx:QMAKE_CXXFLAGS_DEBUG		+= -I/opt/homebrew/include -stdlib=libc++
+macx:QMAKE_CXXFLAGS_RELEASE		+= -I/Users/inou/work/boost_1_81_0 -stdlib=libc++
+macx:QMAKE_LFLAGS_RELEASE	+= -L/Users/inou/work/boost_1_81_0/stage/lib -stdlib=libc++
+macx:QMAKE_CXXFLAGS_DEBUG		+= -I/Users/inou/work/boost_1_81_0 -stdlib=libc++
 macx:QMAKE_LFLAGS_DEBUG	+= -L/opt/homebrew/lib -stdlib=libc++
+# for homebrew
+#macx:QMAKE_CXXFLAGS_RELEASE		+= -I/opt/homebrew/include -stdlib=libc++
+#macx:QMAKE_LFLAGS_RELEASE	+= -L/opt/homebrew/lib -stdlib=libc++
+#macx:QMAKE_CXXFLAGS_DEBUG		+= -I/opt/homebrew/include -stdlib=libc++
+#macx:QMAKE_LFLAGS_DEBUG	+= -L/opt/homebrew/lib -stdlib=libc++
 #macx:QMAKE_CXXFLAGS_RELEASE		+= -I/usr/local/include -stdlib=libc++
 #macx:QMAKE_LFLAGS_RELEASE	+= -L/usr/local/lib -stdlib=libc++
 #macx:QMAKE_MACOSX_DEPLOYMENT_TARGET	= 10.11
 #macx:QMAKE_MAC_SDK = macosx10.11
+# for Intel (x86_64) binary
+macx:QMAKE_CXXFLAGS_RELEASE		+= -arch x86_64
+macx:QMAKE_LFLAGS_RELEASE		+= -arch x86_64
 
 # for Boost (Mac, Linux)
-macx:LIBS	+= -lboost_thread-mt -lboost_system-mt
+#macx:LIBS	+= -lboost_thread-mt -lboost_system-mt
+macx:LIBS	+= -lboost_thread -lboost_system
 
 # for universal binary for Mac
 #QMAKE_MAC_SDK	= /Developer/SDKs/MacOSX10.4u.sdk
