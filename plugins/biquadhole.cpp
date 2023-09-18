@@ -46,14 +46,14 @@ double VALUE[N] = { 0.1, 0.1,
   p, -q, -q, p,
   q, p, -p, -q };
 */
+
+// simplified parameter
 const double s = 1/sqrt(2);
 double VALUE[N] = { 0.1, 0.1,
   s, 0, 0, 0,
   0, 0, s, 0,
   1, 0, -1, 0,
   0, 1,  0, -1 };
-
-// simplified parameter
 
 const Parameter PARAM(N, VALUE);
 const char* PARAMDESC[N] = { "v1", "v2",

@@ -26,18 +26,25 @@ const double XL = -2.0;
 const double YT = 2.0;
 const double XR = 2.0;
 const double YB = -2.0;
-const double CRE = 0.0;
-const double CIM = 1.0;
 
 const int MAXITER = 100;
 const int MAXORBIT = 10;
 const int N = 20;
+/*
 const double p = 0.1649077112, q = 0.687608498;
 double VALUE[N] = { 0, 0, -0.1, -0.1,
   q, -p, -p, q,
   -p, -q, q, p,
   p, q, q, p,
   q, -p, p, -q };
+*/
+// simplified parameter
+const double s = 1/sqrt(2);
+double VALUE[N] = { 0, 0, o0.1, 0.1,
+  s, 0, 0, 0,
+  0, 0, s, 0,
+  1, 0, -1, 0,
+  0, 1,  0, -1 };
 const Parameter PARAM(N, VALUE);
 const char* PARAMDESC[N] = { "v3", "v4", "v1", "v2",
   "x1", "x2", "x3", "x4",
