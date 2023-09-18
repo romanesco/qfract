@@ -22,22 +22,39 @@ const char* NAME = "Biquad";
 const char* CHILD = "biquadholejulia.so";
 const char* COLORMAP = "dim2.map";
 
-const double XL = -2.0;
-const double YT = 2.0;
-const double XR = 2.0;
-const double YB = -2.0;
-const double CRE = 0.0;
-const double CIM = 1.0;
+/*
+  const double XL = -2.0;
+  const double YT = 2.0;
+  const double XR = 2.0;
+  const double YB = -2.0;
+*/
+const double XL = -1.5;
+const double YT = 1.5;
+const double XR = 1.5;
+const double YB = -1.5;
 
 const int MAXITER = 100;
 const int MAXORBIT = 10;
 const int N = 18;
-const double p = 0.1649077112, q = 0.687608498;
-double VALUE[N] = { -0.1, -0.1,
-  q, -p, -p, q,
-  -p, -q, q, p,
-  p, q, q, p,
-  q, -p, p, -q };
+/*
+//const double p = 0.1649077112, q = 0.687608498;
+const double theta = M_PI/12,
+  p = sin(theta)/sqrt(2), q = -cos(theta)/sqrt(2);
+double VALUE[N] = { 0.1, 0.1,
+  q, p, p, q,
+  p, -q, q, -p,
+  p, -q, -q, p,
+  q, p, -p, -q };
+*/
+const double s = 1/sqrt(2);
+double VALUE[N] = { 0.1, 0.1,
+  s, 0, 0, 0,
+  0, 0, s, 0,
+  1, 0, -1, 0,
+  0, 1,  0, -1 };
+
+// simplified parameter
+
 const Parameter PARAM(N, VALUE);
 const char* PARAMDESC[N] = { "v1", "v2",
   "x1", "x2", "x3", "x4",
