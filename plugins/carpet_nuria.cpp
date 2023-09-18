@@ -50,11 +50,11 @@ int iter(Point z, Parameter param, int max)
     
     for (int j=0; j<maxper; j++) {
       if (norm(x-orbit[maxper-j-1]) < eps) {
-	delete orbit;
+	delete[] orbit;
 	return j*20+128;
       }
     }
-    delete orbit;
+    delete[] orbit;
     return -1;
 }
 

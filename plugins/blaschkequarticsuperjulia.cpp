@@ -1,6 +1,6 @@
 /*
- * Quadratic Blaschke product
- * z(z+a)/(1+conj(a)z)
+ * Quartic Blaschke product with superattractive fixed point of order 3
+ * z^3(z+a)/(1+conj(a)z)
  * (phase space)
  */
 
@@ -9,19 +9,17 @@ using namespace QFract;
 #include <complex>
 using namespace std;
 
-#define FUNCTION x = x*x*(x-l)/(1.0-lc*x);
+#define FUNCTION x = x*x*x*(x-l)/(1.0-lc*x);
 
 #define INCOND  ( (norm(x)>eps) && (norm(x) < 1/eps) )
 
-const char* NAME = "Cubic Blaschke product w/ superattr fp";
+const char* NAME = "Quartic Blaschke product w/ superattr fp";
 const char* CHILD = "";
 
 const double XL = -2.0;
 const double YT = 2.0;
 const double XR = 2.0;
 const double YB = -2.0;
-const double CRE = 0.0;
-const double CIM = 1.0;
 
 const int MAXITER = 50;
 const int MAXORBIT = 10;
@@ -63,8 +61,8 @@ int iter(Point z, Parameter param, int max)
       
     complex<double> l(param.Value(0),param.Value(1));
     complex<double> lc(param.Value(0),-param.Value(1));
-    
-    
+    complex<double> k=sqrt(-l);
+
     register int i;
     for ( i=0; (i<max) && INCOND; i++ ) {
 	FUNCTION
@@ -72,9 +70,9 @@ int iter(Point z, Parameter param, int max)
 
     if (i<max) {
       if (norm(x)<1) {
-	return i*6 + inD*32 + (imag(-x*l)>0)*16;
+	return i*6 + inD*32 + (imag(x*k)>0)*16;
       } else {
-	return i*6 + inD*32 + 8 + (imag(-x*l)>0)*16;
+	return i*6 + inD*32 + 8 + (imag(x*k)>0)*16;
       }
       /*
 	//if (imag(x/cv) >=0)
