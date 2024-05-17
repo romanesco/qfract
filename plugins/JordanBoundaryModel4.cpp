@@ -1,6 +1,7 @@
 /*
- * Harmonic polynomials z^2+c*conj(z) (parameter space)
- */
+ * Cubic polynomial with fixed critical value z^3 - 3a^2z + 2a^3-2a
+ * (Critical value v is equal to the cocritical point -2a)
+ p */
 
 #include "../plugin.h"
 using namespace QFract;
@@ -8,14 +9,14 @@ using namespace QFract;
 #include <complex>
 using namespace std;
 
-const char* NAME = "Harmonic polynomials (parameter space)";
-const char* CHILD= "harmonicjulia.so";
+const char* NAME = "Model4 (parameter space)";
+const char* CHILD= "JordanBoundaryModel4julia.so";
 //
 
-const double XL = -2.0;
-const double YT = 2.0;
-const double XR = 2.0;
-const double YB = -2.0;
+const double XL = -3;
+const double YT = 3;
+const double XR = 3;
+const double YB = -3;
 
 const int MAXITER = 50;
 const int MAXORBIT = 10;
@@ -28,18 +29,18 @@ extern "C" {
 int iter(Point z, Parameter param, int max)
 {
     complex<double> a(z.x, z.y);
-    complex<double> x=a/2.0;
-    double R=1000;
-
-    register int i,j;
-    for ( i=0; (i<max) && (norm(x) < R ); i++ ) {
-      x = x*x + a * conj(x);
+    complex<double> x=a;
+    
+    register int i;
+    for ( i=0; (i<max) && (norm(x) < 10000 ); i++ ) {
+      x = x*x*(-a/2.0 + x/3.0);
+      x = x*x;
     }
     
     if (i>=max)
 	return -1;
-    else
-	return i;
+    else 
+      return i + (imag(x)>0)*32;
 }
 
 Point map(Point z, Point c, Parameter param)
@@ -47,14 +48,15 @@ Point map(Point z, Point c, Parameter param)
     complex<double> a(c.x, c.y);
     complex<double> x(z.x, z.y);
 
-    x = x*x + a * conj(x);
-    
+    x = x*x*(-a/2.0 + x/3.0);
+    x = x*x;
+
     return Point(real(x),imag(x));
 }
 
 Point init(Point c, Parameter param) 
 {
-    return c;
+  return Point(-c.x, -c.y);
 }
 
 PluginInfo* getInfo()

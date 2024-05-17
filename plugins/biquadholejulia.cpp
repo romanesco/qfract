@@ -40,7 +40,7 @@ double VALUE[N] = { 0, 0, -0.1, -0.1,
 */
 // simplified parameter
 const double s = 1/sqrt(2);
-double VALUE[N] = { 0, 0, o0.1, 0.1,
+double VALUE[N] = { 0, 0, 0.1, 0.1,
   s, 0, 0, 0,
   0, 0, s, 0,
   1, 0, -1, 0,
